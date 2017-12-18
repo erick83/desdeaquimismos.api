@@ -14,7 +14,7 @@ import com.desdeaquimismo.backend.entities.Post;
 import com.desdeaquimismo.backend.services.PostService;
 
 @RestController 
-public class PostController {
+public class ApiController {
 
 	@Autowired
 	private PostService postService;
@@ -34,8 +34,9 @@ public class PostController {
 		postService.insert(post);
 	}
 	
-	/*@RequestMapping(value="/post", method=RequestMethod.POST)
-	public String chckPost(@RequestBody Post post) {
-		return "Title: " + post.getTitle();
-	}*/
+	@RequestMapping(method=RequestMethod.POST, value="/user")
+	public void newUser(@RequestBody User user) {
+		
+	}
+	
 }

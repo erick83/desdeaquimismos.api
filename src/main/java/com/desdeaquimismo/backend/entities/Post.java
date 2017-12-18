@@ -1,5 +1,11 @@
 package com.desdeaquimismo.backend.entities;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,15 +15,24 @@ public class Post {
 	@Id
 	private String id;
 	
+	@NotBlank
+	@Length(max=100)
 	private String title;
-	private String date;
+	
+	private Date date;
 	private boolean deleted;
 	
 	public Post() {}
 
 	public Post(String title, String date) {
-		this.title = title;
-		this.date = date;
+		DateFormat df = DateFormat.getInstance();
+		try {
+			this.date = df.parse(date);
+			this.title = title;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String getTitle() {
@@ -28,11 +43,11 @@ public class Post {
 		this.title = title;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
